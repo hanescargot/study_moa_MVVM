@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<MapsFragment>(R.id.main_fragment)
+                add<LoginFragment>(R.id.main_fragment)
             }
         }
+        val modalBottomSheet = ModalBottomSheet()
+        modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
     }
 }
