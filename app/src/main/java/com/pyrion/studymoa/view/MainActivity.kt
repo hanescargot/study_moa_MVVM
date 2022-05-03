@@ -2,12 +2,15 @@ package com.pyrion.studymoa.view
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.pyrion.studymoa.R
+import com.pyrion.studymoa.adapter.BottomSheetListViewAdapter
 import com.pyrion.studymoa.databinding.ActivityMainBinding
+import com.pyrion.studymoa.utils.StudyDTO
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,9 +31,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //Bottom Sheet
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.lv, BottomSheetFragment()).commit()
-
+        //todo Model에서 Call
+        val datas = mutableListOf<StudyDTO>()
+        datas.apply {
+            addAll(listOf(
+                StudyDTO("https://kr-mb.theepochtimes.com/assets/uploads/2019/11/a58d75581e050bbc5c6acfe08ad418ff.png",
+                    "제목 1",
+                    "message1",
+                    "주소1",
+                    "010-xxxx-xxxx"
+                ),
+                StudyDTO("https://kr-mb.theepochtimes.com/assets/uploads/2019/11/a58d75581e050bbc5c6acfe08ad418ff.png",
+                    "제목 2",
+                    "message2",
+                    "주소2",
+                    "010-xxxx-xxxx"
+                ),
+                StudyDTO("https://kr-mb.theepochtimes.com/assets/uploads/2019/11/a58d75581e050bbc5c6acfe08ad418ff.png",
+                    "제목 3",
+                    "message3",
+                    "주소3",
+                    "010-xxxx-xxxx"
+                )
+            ))
+        }
+        //Bottom Sheet List View
+        var listViewAdapter = BottomSheetListViewAdapter(this)
+        binding.lv.adapter = listViewAdapter
+        listViewAdapter.dataList = datas
+        listViewAdapter.notifyDataSetChanged()
     }
 }

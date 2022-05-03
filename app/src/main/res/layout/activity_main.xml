@@ -48,7 +48,7 @@
                     android:layout_centerVertical="true"
                     android:text="추가" />
             </RelativeLayout>
-            <androidx.fragment.app.FragmentContainerView
+            <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/lv"/>

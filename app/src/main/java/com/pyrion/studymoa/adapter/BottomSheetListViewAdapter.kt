@@ -8,24 +8,22 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.pyrion.studymoa.R
-import com.pyrion.studymoa.databinding.ActivityMainBinding
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemStudyBinding
 import com.pyrion.studymoa.utils.StudyDTO
 import com.pyrion.studymoa.view.MainActivity
-import org.w3c.dom.Text
 
 
-class BottomSheetListViewAdapter(private val context:Context, val list : List<StudyDTO>) : BaseAdapter() {
+class BottomSheetListViewAdapter(private val context:Context) : BaseAdapter() {
+    var dataList = mutableListOf<StudyDTO>()
+
     override fun getCount(): Int {
-        Log.println(Log.DEBUG, "!!getCount_tile", list.size.toString())
-        return list.size
+        return dataList.size
     }
 
     override fun getItem(position: Int): Any {
-        Log.println(Log.DEBUG, "!!getItem", list[position].title)
-        return list[position]
+        return dataList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -36,7 +34,6 @@ class BottomSheetListViewAdapter(private val context:Context, val list : List<St
         lateinit var binding: ItemStudyBinding
         val view : View
         val holder : viewHolder
-        Log.println(Log.DEBUG, "!!getView", list[position].title)
         if(convertView == null){//View Holder 를 사용해서 틀을 재사용 함으로써 반복 생성 하지 않도록 체크 -> 스크롤링 성능 향상
             // 틀 새로 생성
             binding = ItemStudyBinding.inflate(LayoutInflater.from(context))
@@ -56,12 +53,11 @@ class BottomSheetListViewAdapter(private val context:Context, val list : List<St
         }
 
         // 틀 내용 채우기
-        val study = list[position]
+        val study = dataList[position]
         holder.title?.text = study.title
         holder.message?.text = study.message
+        Glide.with(context).load(study.imgUrl).into(holder.iv!!)
 
-        Log.println(Log.DEBUG, "~!!title", study.title)
-        Log.println(Log.DEBUG, "~!!title","dkdjdkl")
         return view
     }
 
