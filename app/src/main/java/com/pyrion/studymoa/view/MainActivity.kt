@@ -1,6 +1,8 @@
 package com.pyrion.studymoa.view
 
+import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -19,14 +21,16 @@ class MainActivity : AppCompatActivity() {
         // 인스턴스를 활용하여 생성된 뷰를 액티비티에 표시
         setContentView(binding.root)
 
-
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<LoginFragment>(R.id.main_fragment)
+                add<MapsFragment>(R.id.main_fragment)
             }
         }
-        val modalBottomSheet = ModalBottomSheet()
-        modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+
+        //Bottom Sheet
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.lv, BottomSheetFragment()).commit()
+
     }
 }
