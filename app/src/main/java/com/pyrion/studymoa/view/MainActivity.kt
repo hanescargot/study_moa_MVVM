@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pyrion.studymoa.R
 import com.pyrion.studymoa.adapter.BottomSheetListViewAdapter
 import com.pyrion.studymoa.databinding.ActivityMainBinding
@@ -30,6 +31,14 @@ class MainActivity : AppCompatActivity() {
                 add<MapsFragment>(R.id.main_fragment)
             }
         }
+
+        //bottomsheet custom
+        var behavior = BottomSheetBehavior.from(binding.bottomSheet)
+        behavior.isFitToContents = false
+        behavior.halfExpandedRatio = 0.6f
+
+
+
 
         //todo Model에서 Call
         val datas = mutableListOf<StudyDTO>()

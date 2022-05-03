@@ -13,6 +13,7 @@
         app:behavior_hideable="false"
         app:behavior_peekHeight="80dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:id="@+id/bottom_sheet"
         >
         <LinearLayout
             android:orientation="vertical"
