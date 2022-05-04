@@ -9,6 +9,8 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemStudyBinding
 import com.pyrion.studymoa.utils.StudyDTO
@@ -16,10 +18,11 @@ import com.pyrion.studymoa.view.MainActivity
 
 
 class BottomSheetListViewAdapter(private val context:Context) : BaseAdapter() {
-    var dataList = mutableListOf<StudyDTO>()
+    lateinit var liveData : LiveData<ArrayList<StudyDTO>>
+    lateinit var dataList : LiveData<ArrayList<StudyDTO>>
 
     override fun getCount(): Int {
-        return dataList.size
+        return dataList.value?.size!!
     }
 
     override fun getItem(position: Int): Any {

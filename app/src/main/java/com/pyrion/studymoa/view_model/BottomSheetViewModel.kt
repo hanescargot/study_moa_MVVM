@@ -2,8 +2,9 @@ package com.pyrion.studymoa.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class BottomSheetViewModel {
+class BottomSheetViewModel : ViewModel()  {
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
     }
