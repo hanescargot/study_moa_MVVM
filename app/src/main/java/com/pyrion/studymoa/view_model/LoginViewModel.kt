@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class LoginViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
+    private val _tesxt = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
     }
     val text: LiveData<String> = _text
