@@ -4,14 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/activity_main.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_study.xml" value="0.11296296296296296" />
         <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.146875" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/activity_main.xml" value="0.136" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/bottom_sheet_content.xml" value="0.24427083333333333" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.24427083333333333" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/fragment_dashboard.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/fragment_maps.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/lv_item_study.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.4" />
       </map>
     </option>
   </component>
