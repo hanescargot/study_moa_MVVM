@@ -46,17 +46,17 @@ class MainActivity : AppCompatActivity() {
         behavior.halfExpandedRatio = 0.6f
 
         //Bottom Sheet List View
-        Log.i("!!","start")
         mainViewModel.studyList.value?.get(0)?.let { Log.i("!!", it.title) }
         binding.lv.layoutManager = LinearLayoutManager(this)
-        val adapter = BottomSheetRecyclerViewAdapter(this, mainViewModel.studyList)
+        val adapter = BottomSheetRecyclerViewAdapter(mainViewModel.studyList)
         binding.lv.adapter = adapter
         val dataObserver: Observer<ArrayList<StudyDTO>> = Observer {
-            Log.i("!!","update")
-            val recyclerViewItems = MutableLiveData<ArrayList<StudyDTO>>()
-            recyclerViewItems.value = it
-            val adapter = BottomSheetRecyclerViewAdapter(this, recyclerViewItems)
-            binding.lv.adapter = adapter
+            adapter.setItems(it)
+            adapter.notifyDataSetChanged()
+//            val recyclerViewItems = MutableLiveData<ArrayList<StudyDTO>>()
+//            recyclerViewItems.value = it
+//            val adapter = BottomSheetRecyclerViewAdapter(this, recyclerViewItems)
+//            binding.lv.adapter = adapter
         }
         mainViewModel.studyList.observe(this, dataObserver)
     }

@@ -1,14 +1,9 @@
 package com.pyrion.studymoa.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.LiveData
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemStudyBinding
@@ -16,25 +11,23 @@ import com.pyrion.studymoa.utils.StudyDTO
 
 
 class BottomSheetRecyclerViewAdapter(
-    val context: Context,
     private var items: LiveData<ArrayList<StudyDTO>>
     ) : RecyclerView.Adapter<BottomSheetRecyclerViewAdapter.RecyclerViewHoler>() {
+    var _items = items.value
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHoler {
-        Log.i("!!", "ddcc")
-        val binding = ItemStudyBinding.inflate(LayoutInflater.from(context), parent, false)
-        return RecyclerViewHoler(binding, context)
+        val binding = ItemStudyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return RecyclerViewHoler(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHoler, position: Int) {
-        items.value?.get(position)?.let {
+        _items?.get(position)?.let {
             holder.bind(it)
         }
     }
 
     override fun getItemCount(): Int {
-        Log.i("!!", items?.value?.size!!.toString())
-        return items?.value?.size!!
+        return _items?.size!!
     }
 
     inner class RecyclerViewHoler (private val binding: ItemStudyBinding, val context: Context) : RecyclerView.ViewHolder(binding.root){
@@ -46,8 +39,8 @@ class BottomSheetRecyclerViewAdapter(
         }
     }
 
-    fun setItems(newItems : LiveData<ArrayList<StudyDTO>>){
-        items = newItems
+    fun setItems(newItems : ArrayList<StudyDTO>){
+        _items = newItems
     }
 
 }
