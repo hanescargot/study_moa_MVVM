@@ -18,7 +18,7 @@ import com.pyrion.studymoa.databinding.ActivityMainBinding
 import com.pyrion.studymoa.utils.StudyDTO
 import com.pyrion.studymoa.view_model.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),  BottomSheetRecyclerViewAdapter.OnRecyclerItemClickListener{
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var _binding: ActivityMainBinding
@@ -59,5 +59,23 @@ class MainActivity : AppCompatActivity() {
 //            binding.lv.adapter = adapter
         }
         mainViewModel.studyList.observe(this, dataObserver)
+    }
+
+    override fun onRecyclerItemClick(studyDto: StudyDTO) {
+        // 리사이클러 뷰 클릭 리스너 인터페이스 구현
+        //상세정보 얼럿
+//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//            alertDialogBuilder.setTitle("You tapped...");
+//            alertDialogBuilder.setMessage(data);
+//            alertDialogBuilder.setCancelable(true);
+//            alertDialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                    dialog.cancel();
+//                }
+//            });
+//            AlertDialog alertDialog = alertDialogBuilder.create();
+//            alertDialog.show();
+
+        // Toast.makeText(this, "Please select select an option", Toast.LENGTH_SHORT).show();
     }
 }

@@ -11,7 +11,7 @@ import com.pyrion.studymoa.utils.StudyDTO
 
 
 class BottomSheetRecyclerViewAdapter(
-    private var items: LiveData<ArrayList<StudyDTO>>
+    private var items: LiveData<ArrayList<StudyDTO>>, OnRecyclerItemClickListener onRecyclerItemClickListener
     ) : RecyclerView.Adapter<BottomSheetRecyclerViewAdapter.RecyclerViewHoler>() {
     var _items = items.value
 
@@ -36,11 +36,17 @@ class BottomSheetRecyclerViewAdapter(
             Glide.with(context).load(studyData.imgUrl).into(iv!!)
             title.text = studyData.title
             description.text = studyData.description
+            bg.setOnClickListener {  }
         }
     }
 
     fun setItems(newItems : ArrayList<StudyDTO>){
         _items = newItems
+    }
+
+    public interface OnRecyclerItemClickListener {
+        fun onRecyclerItemClick( studyDto:StudyDTO )
+
     }
 
 }
