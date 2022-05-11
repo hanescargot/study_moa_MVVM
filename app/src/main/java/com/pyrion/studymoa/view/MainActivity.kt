@@ -1,24 +1,30 @@
 package com.pyrion.studymoa.view
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.Window
+import android.widget.AdapterView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pyrion.studymoa.R
 import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter
+import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter.OnRecyclerItemClickListener
 import com.pyrion.studymoa.databinding.ActivityMainBinding
+import com.pyrion.studymoa.databinding.DialogStudyBinding
 import com.pyrion.studymoa.utils.StudyDTO
 import com.pyrion.studymoa.view_model.MainViewModel
 
-class MainActivity : AppCompatActivity(),  BottomSheetRecyclerViewAdapter.OnRecyclerItemClickListener{
+class MainActivity : AppCompatActivity(){
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var _binding: ActivityMainBinding
@@ -49,33 +55,36 @@ class MainActivity : AppCompatActivity(),  BottomSheetRecyclerViewAdapter.OnRecy
         mainViewModel.studyList.value?.get(0)?.let { Log.i("!!", it.title) }
         binding.lv.layoutManager = LinearLayoutManager(this)
         val adapter = BottomSheetRecyclerViewAdapter(mainViewModel.studyList)
+
+        adapter.setOnItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onRecyclerItemClick(studyDto: StudyDTO) {
+                // 리사이클러 뷰 클릭 리스너 인터페이스 구현
+                //상세정보 얼럿
+                showDialog(studyDto)
+
+            }
+        })
         binding.lv.adapter = adapter
         val dataObserver: Observer<ArrayList<StudyDTO>> = Observer {
             adapter.setItems(it)
             adapter.notifyDataSetChanged()
-//            val recyclerViewItems = MutableLiveData<ArrayList<StudyDTO>>()
-//            recyclerViewItems.value = it
-//            val adapter = BottomSheetRecyclerViewAdapter(this, recyclerViewItems)
-//            binding.lv.adapter = adapter
         }
         mainViewModel.studyList.observe(this, dataObserver)
     }
 
-    override fun onRecyclerItemClick(studyDto: StudyDTO) {
-        // 리사이클러 뷰 클릭 리스너 인터페이스 구현
-        //상세정보 얼럿
-//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//            alertDialogBuilder.setTitle("You tapped...");
-//            alertDialogBuilder.setMessage(data);
-//            alertDialogBuilder.setCancelable(true);
-//            alertDialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    dialog.cancel();
-//                }
-//            });
-//            AlertDialog alertDialog = alertDialogBuilder.create();
-//            alertDialog.show();
 
-        // Toast.makeText(this, "Please select select an option", Toast.LENGTH_SHORT).show();
+    lateinit var dialog  : Dialog
+    fun showDialog(studyDto: StudyDTO) {
+        dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
+        val dialogBinding = DialogStudyBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogBinding.root)
+        Glide.with(this).load(studyDto.imgUrl).into(dialogBinding.iv);
+        dialogBinding.tvTitle.text = studyDto.title
+        dialogBinding.tvAddress.text = studyDto.address
+        dialogBinding.tvPhoneNumber.text = studyDto.phoneNumber
+        dialogBinding.tvDescription.text = studyDto.description
+        dialog.show()
     }
+
 }
