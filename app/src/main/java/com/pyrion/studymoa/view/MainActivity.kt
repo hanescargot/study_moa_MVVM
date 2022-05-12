@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.Window
-import android.widget.AdapterView
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,8 @@ import com.pyrion.studymoa.R
 import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter
 import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter.OnRecyclerItemClickListener
 import com.pyrion.studymoa.databinding.ActivityMainBinding
-import com.pyrion.studymoa.databinding.DialogStudyBinding
+import com.pyrion.studymoa.databinding.DialogAddStudyBinding
+import com.pyrion.studymoa.databinding.DialogDetailStudyBinding
 import com.pyrion.studymoa.utils.StudyDTO
 import com.pyrion.studymoa.view_model.MainViewModel
 
@@ -46,8 +46,13 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
+        //스터디 추가 기능
+        binding.btn.setOnClickListener(View.OnClickListener {
+            showAddStudyDialog()
+        })
+
         //bottomsheet custom
-        var behavior = BottomSheetBehavior.from(binding.bottomSheet)
+        val behavior = BottomSheetBehavior.from(binding.bottomSheet)
         behavior.isFitToContents = false
         behavior.halfExpandedRatio = 0.6f
 
@@ -60,8 +65,7 @@ class MainActivity : AppCompatActivity(){
             override fun onRecyclerItemClick(studyDto: StudyDTO) {
                 // 리사이클러 뷰 클릭 리스너 인터페이스 구현
                 //상세정보 얼럿
-                showDialog(studyDto)
-
+                showStudyDetailDialog(studyDto)
             }
         })
         binding.lv.adapter = adapter
@@ -74,10 +78,10 @@ class MainActivity : AppCompatActivity(){
 
 
     lateinit var dialog  : Dialog
-    fun showDialog(studyDto: StudyDTO) {
+    fun showStudyDetailDialog(studyDto: StudyDTO) {
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
-        val dialogBinding = DialogStudyBinding.inflate(layoutInflater)
+        val dialogBinding = DialogDetailStudyBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
         Glide.with(this).load(studyDto.imgUrl).into(dialogBinding.iv);
         dialogBinding.tvTitle.text = studyDto.title
@@ -85,6 +89,16 @@ class MainActivity : AppCompatActivity(){
         dialogBinding.tvPhoneNumber.text = studyDto.phoneNumber
         dialogBinding.tvDescription.text = studyDto.description
         dialog.show()
+    }
+
+
+    private fun showAddStudyDialog() {
+        dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
+        val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogBinding.root)
+        dialog.show()
+        Toast.makeText(this, "!!", Toast.LENGTH_SHORT).show()
     }
 
 }
