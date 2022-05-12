@@ -96,9 +96,13 @@ class MainActivity : AppCompatActivity(){
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
         val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
+        dialogBinding.btn.setOnClickListener {
+            //todo submit
+            Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
         dialog.setContentView(dialogBinding.root)
         dialog.show()
-        Toast.makeText(this, "!!", Toast.LENGTH_SHORT).show()
     }
 
 }

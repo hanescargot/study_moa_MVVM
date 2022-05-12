@@ -53,7 +53,6 @@ class BottomSheetRecyclerViewAdapter(
 
     public interface OnRecyclerItemClickListener {
         fun onRecyclerItemClick( studyDto:StudyDTO )
-
     }
     fun setOnItemClickListener(itemClickListener: OnRecyclerItemClickListener) {
         this.itemClickListener = itemClickListener
