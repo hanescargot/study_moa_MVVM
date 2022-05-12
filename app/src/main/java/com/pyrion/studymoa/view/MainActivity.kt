@@ -45,8 +45,13 @@ class MainActivity : AppCompatActivity(){
                 add<MapsFragment>(R.id.main_fragment)
             }
         }
+        //나의 스터디 목록 보기 버튼
+        binding.btn.setOnClickListener{
+            showMyStudyListDialog()
+        }
 
-        //스터디 추가 기능
+
+        //스터디 추가 버튼
         binding.btn.setOnClickListener(View.OnClickListener {
             showAddStudyDialog()
         })
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity(){
 
         //Bottom Sheet List View
         mainViewModel.studyList.value?.get(0)?.let { Log.i("!!", it.title) }
-        binding.lv.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = BottomSheetRecyclerViewAdapter(mainViewModel.studyList)
 
         adapter.setOnItemClickListener(object : OnRecyclerItemClickListener {
@@ -68,12 +73,19 @@ class MainActivity : AppCompatActivity(){
                 showStudyDetailDialog(studyDto)
             }
         })
-        binding.lv.adapter = adapter
+        binding.recyclerView.adapter = adapter
         val dataObserver: Observer<ArrayList<StudyDTO>> = Observer {
             adapter.setItems(it)
             adapter.notifyDataSetChanged()
         }
         mainViewModel.studyList.observe(this, dataObserver)
+    }
+
+    private fun showMyStudyListDialog() {
+        dialog = Dialog(this)
+        dialog.setTitle("게시한 나의 스터디 목록")
+        dialog.setContentView(R.layout.dialog_my_study)
+        dialog.show()
     }
 
 

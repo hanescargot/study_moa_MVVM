@@ -2,12 +2,22 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
+
+    <TextView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        />
+        android:layout_gravity="right"
+        android:layout_marginTop="160dp"
+        android:text="My"
+        android:id="@+id/myBtn"
+        android:backgroundTint="@color/purple_200"
+        android:background="@drawable/my_btn"
+        android:elevation="16dp"
+        android:gravity="center"
+        android:layout_marginRight="24dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -57,7 +67,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lv"
+                android:id="@+id/recycler_view"
                 />
 
         </LinearLayout>
