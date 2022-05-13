@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:id="@+id/bg">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="#3333"
+        android:layout_alignParentLeft="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_toRightOf="@id/iv"
+        android:ellipsize="end"
+        android:maxWidth="160dp"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:text="titledsafsafdafadafafdfaaaaaaaaaaaaaaaaaaaaaa" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:text="내용 내용 내용"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@id/iv"
+        />
+
+    <ImageView
+        android:layout_margin="8dp"
+        android:id="@+id/edit"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/delete"
+        android:background="@color/purple_200" />
+
+    <ImageView
+        android:layout_margin="8dp"
+        android:background="@color/purple_200"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/delete"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+</RelativeLayout>

@@ -1,10 +1,15 @@
 package com.pyrion.studymoa.view
 
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
@@ -18,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pyrion.studymoa.R
 import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter
 import com.pyrion.studymoa.adapter.BottomSheetRecyclerViewAdapter.OnRecyclerItemClickListener
+import com.pyrion.studymoa.adapter.MyStudyListViewAdapter
 import com.pyrion.studymoa.databinding.ActivityMainBinding
 import com.pyrion.studymoa.databinding.DialogAddStudyBinding
 import com.pyrion.studymoa.databinding.DialogDetailStudyBinding
@@ -46,24 +52,24 @@ class MainActivity : AppCompatActivity(){
             }
         }
         //나의 스터디 목록 보기 버튼
-        binding.btn.setOnClickListener{
+        _binding.myBtn.setOnClickListener{
             showMyStudyListDialog()
         }
 
 
         //스터디 추가 버튼
-        binding.btn.setOnClickListener(View.OnClickListener {
+        _binding.btn.setOnClickListener(View.OnClickListener {
             showAddStudyDialog()
         })
 
         //bottomsheet custom
-        val behavior = BottomSheetBehavior.from(binding.bottomSheet)
+        val behavior = BottomSheetBehavior.from(_binding.bottomSheet)
         behavior.isFitToContents = false
         behavior.halfExpandedRatio = 0.6f
 
         //Bottom Sheet List View
         mainViewModel.studyList.value?.get(0)?.let { Log.i("!!", it.title) }
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        _binding.recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = BottomSheetRecyclerViewAdapter(mainViewModel.studyList)
 
         adapter.setOnItemClickListener(object : OnRecyclerItemClickListener {
@@ -73,7 +79,7 @@ class MainActivity : AppCompatActivity(){
                 showStudyDetailDialog(studyDto)
             }
         })
-        binding.recyclerView.adapter = adapter
+        _binding.recyclerView.adapter = adapter
         val dataObserver: Observer<ArrayList<StudyDTO>> = Observer {
             adapter.setItems(it)
             adapter.notifyDataSetChanged()
@@ -82,9 +88,44 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun showMyStudyListDialog() {
+        //최초로 화면을 로딩한 후에도 스크롤을 움직이는 등 액션을 취하면 그 때마다 findViewById를 통해 convertView에 들어갈 요소를 찾는다.
+        // 스크롤 할 때마다 View를 찾으면 리소스를 많이 사용하게 되고, 속도가 느려진다.
+        Toast.makeText(this, "!!!!", Toast.LENGTH_SHORT).show()
         dialog = Dialog(this)
         dialog.setTitle("게시한 나의 스터디 목록")
-        dialog.setContentView(R.layout.dialog_my_study)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_add_study, null)
+        val listView = view.findViewById<ListView>(R.id.list_view)
+        val adapter = MyStudyListViewAdapter(this, mainViewModel.studyList)//데이터 바꿔야 함
+        adapter.setOnEditButtonClickListener(object :
+            MyStudyListViewAdapter.OnEditButtonClickListener{
+                override fun onClickEdit(context: Context) {
+                    //스터디 수정
+                }
+            }
+        )
+
+        adapter.setOnDeleteButtonClickListener(object :
+            MyStudyListViewAdapter.OnDeleteButtonClickListener {
+            override fun onClickDelete(context: Context) {
+                super.onClickDelete(context)
+                var builder = AlertDialog.Builder(context)
+                builder.setTitle("나의 스터디 삭제")
+                    .setMessage("선택한 스터디를 삭제하시겠습니까? 삭제된 스터디는 복구되지 않습니다.")
+                    .setPositiveButton("삭제",
+                        DialogInterface.OnClickListener { _, _ ->
+                            Toast.makeText(context, "삭제 완료", Toast.LENGTH_SHORT).show()
+                        })
+                    .setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    })
+                builder.show()
+            }
+        })
+        listView.adapter = adapter
+
+
+
+        dialog.setContentView(view)
         dialog.show()
     }
 
