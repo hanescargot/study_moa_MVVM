@@ -4,11 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/activity_main.xml" value="0.10277777777777777" />
-        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/dialog_add_study.xml" value="0.3828571428571429" />
-        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/dialog_study.xml" value="0.18857142857142858" />
-        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_my_study.xml" value="0.2796875" />
-        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_study.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_study.xml" value="0.11296296296296296" />
         <entry key="..\:/Users/pyrio/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.146875" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.21203703703703702" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/drawable/my_btn.xml" value="0.1527777777777778" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/dialog_add_study.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/dialog_detail_study.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/dialog_my_study.xml" value="0.176" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_my_study.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/xian/AndroidStudioProjects/StudyMoa/app/src/main/res/layout/item_study.xml" value="0.23541666666666666" />
       </map>
     </option>
   </component>

@@ -87,19 +87,21 @@ class MainActivity : AppCompatActivity(){
         mainViewModel.studyList.observe(this, dataObserver)
     }
 
+    lateinit var myStudyDialog  : Dialog
+    lateinit var editStudyDialog  : Dialog
     private fun showMyStudyListDialog() {
         //최초로 화면을 로딩한 후에도 스크롤을 움직이는 등 액션을 취하면 그 때마다 findViewById를 통해 convertView에 들어갈 요소를 찾는다.
         // 스크롤 할 때마다 View를 찾으면 리소스를 많이 사용하게 되고, 속도가 느려진다.
-        Toast.makeText(this, "!!!!", Toast.LENGTH_SHORT).show()
-        dialog = Dialog(this)
-        dialog.setTitle("게시한 나의 스터디 목록")
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_add_study, null)
+        myStudyDialog = Dialog(this)
+        myStudyDialog.setTitle("나의 스터디 목록")
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_my_study, null)
         val listView = view.findViewById<ListView>(R.id.list_view)
         val adapter = MyStudyListViewAdapter(this, mainViewModel.studyList)//데이터 바꿔야 함
         adapter.setOnEditButtonClickListener(object :
             MyStudyListViewAdapter.OnEditButtonClickListener{
                 override fun onClickEdit(context: Context) {
-                    //스터디 수정
+                    //스터디 수정 버튼 클릭 (add 버튼 클릭)
+
                 }
             }
         )
@@ -122,40 +124,38 @@ class MainActivity : AppCompatActivity(){
             }
         })
         listView.adapter = adapter
+        myStudyDialog.setContentView(view)
+        myStudyDialog.show()
 
-
-
-        dialog.setContentView(view)
-        dialog.show()
     }
 
 
-    lateinit var dialog  : Dialog
+    lateinit var studyDetailDialog  : Dialog
     fun showStudyDetailDialog(studyDto: StudyDTO) {
-        dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
+        studyDetailDialog = Dialog(this)
+        studyDetailDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
         val dialogBinding = DialogDetailStudyBinding.inflate(layoutInflater)
-        dialog.setContentView(dialogBinding.root)
+        studyDetailDialog.setContentView(dialogBinding.root)
         Glide.with(this).load(studyDto.imgUrl).into(dialogBinding.iv);
         dialogBinding.tvTitle.text = studyDto.title
         dialogBinding.tvAddress.text = studyDto.address
         dialogBinding.tvPhoneNumber.text = studyDto.phoneNumber
         dialogBinding.tvDescription.text = studyDto.description
-        dialog.show()
+        studyDetailDialog.show()
     }
 
-
+    lateinit var addStudyDialog  : Dialog
     private fun showAddStudyDialog() {
-        dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
+        addStudyDialog = Dialog(this)
+        addStudyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
         val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
         dialogBinding.btn.setOnClickListener {
             //todo submit
             Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+            addStudyDialog.dismiss()
         }
-        dialog.setContentView(dialogBinding.root)
-        dialog.show()
+        addStudyDialog.setContentView(dialogBinding.root)
+        addStudyDialog.show()
     }
 
 }
