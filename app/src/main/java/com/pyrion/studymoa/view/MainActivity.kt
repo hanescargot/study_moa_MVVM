@@ -88,19 +88,18 @@ class MainActivity : AppCompatActivity(){
     }
 
     lateinit var myStudyDialog  : Dialog
-    lateinit var editStudyDialog  : Dialog
     private fun showMyStudyListDialog() {
         //최초로 화면을 로딩한 후에도 스크롤을 움직이는 등 액션을 취하면 그 때마다 findViewById를 통해 convertView에 들어갈 요소를 찾는다.
         // 스크롤 할 때마다 View를 찾으면 리소스를 많이 사용하게 되고, 속도가 느려진다.
         myStudyDialog = Dialog(this)
-        myStudyDialog.setTitle("나의 스터디 목록")
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_my_study, null)
         val listView = view.findViewById<ListView>(R.id.list_view)
         val adapter = MyStudyListViewAdapter(this, mainViewModel.studyList)//데이터 바꿔야 함
         adapter.setOnEditButtonClickListener(object :
             MyStudyListViewAdapter.OnEditButtonClickListener{
-                override fun onClickEdit(context: Context) {
-                    //스터디 수정 버튼 클릭 (add 버튼 클릭)
+                override fun onClickEdit(context: Context, studyDto: StudyDTO) {
+                    //스터디 수정 버튼 클릭
+                    showEditStudyDialog(studyDto)
 
                 }
             }
@@ -156,6 +155,27 @@ class MainActivity : AppCompatActivity(){
         }
         addStudyDialog.setContentView(dialogBinding.root)
         addStudyDialog.show()
+    }
+
+    lateinit var editStudyDialog  : Dialog
+    private fun showEditStudyDialog(studyDto : StudyDTO) {
+        editStudyDialog = Dialog(this)
+        editStudyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
+        val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
+        //입력난에 수정 전 내용 입력
+        dialogBinding.etTitle.hint = studyDto.title
+        dialogBinding.etAddress.hint = studyDto.address
+        dialogBinding.etPhoneNumber.hint = studyDto.phoneNumber
+        dialogBinding.etDescription.hint = studyDto.description
+        dialogBinding.btn.text="수정"
+        dialogBinding.btn.setOnClickListener {
+            //todo submit
+            Log.i("!!","!!!!!!!!!!!1")
+            Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show()
+            editStudyDialog.dismiss()
+        }
+        editStudyDialog.setContentView(dialogBinding.root)
+        editStudyDialog.show()
     }
 
 }
