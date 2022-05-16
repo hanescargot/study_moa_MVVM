@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(){
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         //인 액티비티에서 사용할 바인딩 클래스의 인스턴스 생성
         _binding = ActivityMainBinding.inflate(layoutInflater)
+
         // 인스턴스를 활용하여 생성된 뷰를 액티비티에 표시
         setContentView(binding.root)
 
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(){
         }
         //나의 스터디 목록 보기 버튼
         _binding.myBtn.setOnClickListener{
+            mainViewModel.loadStudyList()
+
             showMyStudyListDialog()
         }
 
@@ -94,7 +98,7 @@ class MainActivity : AppCompatActivity(){
         myStudyDialog = Dialog(this)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_my_study, null)
         val listView = view.findViewById<ListView>(R.id.list_view)
-        val adapter = MyStudyListViewAdapter(this, mainViewModel.studyList)//데이터 바꿔야 함
+        val adapter = MyStudyListViewAdapter(this, mainViewModel.myStudyList)//todo 데이터 바꿔야 함
         adapter.setOnEditButtonClickListener(object :
             MyStudyListViewAdapter.OnEditButtonClickListener{
                 override fun onClickEdit(context: Context, studyDto: StudyDTO) {
@@ -163,14 +167,13 @@ class MainActivity : AppCompatActivity(){
         editStudyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
         val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
         //입력난에 수정 전 내용 입력
-        dialogBinding.etTitle.hint = studyDto.title
-        dialogBinding.etAddress.hint = studyDto.address
-        dialogBinding.etPhoneNumber.hint = studyDto.phoneNumber
-        dialogBinding.etDescription.hint = studyDto.description
+        dialogBinding.etTitle.setText(studyDto.title)
+        dialogBinding.etAddress.setText(studyDto.address)
+        dialogBinding.etPhoneNumber.setText(studyDto.phoneNumber)
+        dialogBinding.etDescription.setText(studyDto.description)
         dialogBinding.btn.text="수정"
         dialogBinding.btn.setOnClickListener {
             //todo submit
-            Log.i("!!","!!!!!!!!!!!1")
             Toast.makeText(this, "수정 완료", Toast.LENGTH_SHORT).show()
             editStudyDialog.dismiss()
         }
