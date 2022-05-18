@@ -2,13 +2,11 @@ package com.pyrion.studymoa.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemStudyBinding
-import com.pyrion.studymoa.utils.StudyDTO
 
 
 class BottomSheetRecyclerViewAdapter(

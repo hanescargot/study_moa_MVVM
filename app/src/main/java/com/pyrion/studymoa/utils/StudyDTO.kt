@@ -1,8 +1,18 @@
 package com.pyrion.studymoa.utils
 
-class StudyDTO (val imgUrl: String,
-                val title: String,
-                val description: String,
-                var address: String,
-                var phoneNumber: String
-                ) {}
+import com.google.gson.annotations.SerializedName
+
+class StudyDTO(
+    @SerializedName(value="imageURL")
+    var imageURL : String,
+    @SerializedName(value="studyTitle")
+    var studyTitle : String,
+    @SerializedName(value="contact")
+    var contact : String,
+    @SerializedName(value="place")
+    var place : String,
+    @SerializedName(value="studyDescription")
+    var studyDescription : String
+) {
+
+}

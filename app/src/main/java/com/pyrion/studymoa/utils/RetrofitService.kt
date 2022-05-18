@@ -1,6 +1,7 @@
 package com.pyrion.studymoa.utils
 
 
+
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -8,8 +9,8 @@ import retrofit2.http.*
 interface RetrofitService {
 
 
-    @POST()
-    fun getStudyList(@Query("places") requestData: ArrayList<String>): Call<String>
+    @POST("/")
+    fun getStudyList(@Body() places: RequestStudyDTO): Call<ResponseStudyListDTO>
 
 
 

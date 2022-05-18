@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -142,7 +141,7 @@ class MainActivity : AppCompatActivity(){
         Glide.with(this).load(studyDto.imgUrl).into(dialogBinding.iv);
         dialogBinding.tvTitle.text = studyDto.title
         dialogBinding.tvAddress.text = studyDto.address
-        dialogBinding.tvPhoneNumber.text = studyDto.phoneNumber
+        dialogBinding.tvPhoneNumber.text = studyDto.contact
         dialogBinding.tvDescription.text = studyDto.description
         studyDetailDialog.show()
     }
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity(){
         //입력난에 수정 전 내용 입력
         dialogBinding.etTitle.setText(studyDto.title)
         dialogBinding.etAddress.setText(studyDto.address)
-        dialogBinding.etPhoneNumber.setText(studyDto.phoneNumber)
+        dialogBinding.etPhoneNumber.setText(studyDto.contact)
         dialogBinding.etDescription.setText(studyDto.description)
         dialogBinding.btn.text="수정"
         dialogBinding.btn.setOnClickListener {
