@@ -2,11 +2,14 @@ package com.pyrion.studymoa.utils
 
 import com.google.gson.annotations.SerializedName
 
-class RequestStudyDTO {
+class AddressListDTO {
     @SerializedName(value="places")
     private val placesList:ArrayList<String> = ArrayList();
 
-    fun add(place : String){
-        this.placesList.add(place)
+    fun add(address : String){
+        this.placesList.add(address)
+    }
+    fun addAll(addresses : ArrayList<String> ){
+        this.placesList.addAll(addresses)
     }
 }

@@ -8,11 +8,13 @@ import android.widget.BaseAdapter
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemMyStudyBinding
+import com.pyrion.studymoa.utils.MyStudyDTO
+import com.pyrion.studymoa.utils.StudyDTO
 
 
 class MyStudyListViewAdapter(
     val context: Context,
-    private var items: LiveData<ArrayList<StudyDTO>>
+    private var items: LiveData<ArrayList<MyStudyDTO>>
     ) : BaseAdapter(){
     override fun getCount(): Int {
        return items.value?.size!!
@@ -27,7 +29,7 @@ class MyStudyListViewAdapter(
     }
 
     override fun getView(i: Int, convertView: View?, parent: ViewGroup?): View {
-        val item : StudyDTO? = items.value?.get(i)
+        val item : MyStudyDTO? = items.value?.get(i)
         var binding = ItemMyStudyBinding.inflate(LayoutInflater.from(context))
         Glide.with(context).load(item?.imgUrl).into(binding.iv);
         binding.title.text = item?.title
@@ -41,7 +43,7 @@ class MyStudyListViewAdapter(
 
     lateinit var editButtonClickListener: OnEditButtonClickListener
     interface OnEditButtonClickListener {
-        fun onClickEdit(context: Context, studyDTO: StudyDTO)//기본 선언된 내용이 없을 때
+        fun onClickEdit(context: Context, studyDTO: MyStudyDTO)//기본 선언된 내용이 없을 때
     }
     fun setOnEditButtonClickListener(listener: OnEditButtonClickListener){
         editButtonClickListener = listener

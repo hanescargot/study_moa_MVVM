@@ -61,11 +61,10 @@
                 android:text="연락처 : " />
 
             <EditText
-                android:id="@+id/et_phone_number"
+                android:id="@+id/et_contact"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:hint="연락처를 입력해 주세요"
-                android:inputType="phone"
                 android:maxLines="1" />
 
         </LinearLayout>

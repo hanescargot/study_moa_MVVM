@@ -27,6 +27,7 @@ import com.pyrion.studymoa.adapter.MyStudyListViewAdapter
 import com.pyrion.studymoa.databinding.ActivityMainBinding
 import com.pyrion.studymoa.databinding.DialogAddStudyBinding
 import com.pyrion.studymoa.databinding.DialogDetailStudyBinding
+import com.pyrion.studymoa.utils.MyStudyDTO
 import com.pyrion.studymoa.utils.StudyDTO
 import com.pyrion.studymoa.view_model.MainViewModel
 
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(){
         }
         //나의 스터디 목록 보기 버튼
         _binding.myBtn.setOnClickListener{
-            mainViewModel.loadStudyList()
+//            mainViewModel.onClickMyBtn()  //todo add 해본다음에 자동으로 업데이트 되는지 확인 한 뒤에 사용 하기
 
             showMyStudyListDialog()
         }
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity(){
         val adapter = MyStudyListViewAdapter(this, mainViewModel.myStudyList)//todo 데이터 바꿔야 함
         adapter.setOnEditButtonClickListener(object :
             MyStudyListViewAdapter.OnEditButtonClickListener{
-                override fun onClickEdit(context: Context, studyDto: StudyDTO) {
+                override fun onClickEdit(context: Context, studyDto: MyStudyDTO) {
                     //스터디 수정 버튼 클릭
                     showEditStudyDialog(studyDto)
 
@@ -153,7 +154,25 @@ class MainActivity : AppCompatActivity(){
         val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
         dialogBinding.btn.setOnClickListener {
             //todo submit
-            Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
+            var newStudyData = StudyDTO(
+                "https://kr-mb.theepochtimes.com/assets/uploads/2019/11/a58d75581e050bbc5c6acfe08ad418ff.png",
+                dialogBinding.etTitle.text.toString(),
+                dialogBinding.etContact.text.toString(),
+                dialogBinding.etAddress.text.toString(),
+                dialogBinding.etDescription.text.toString()
+            )
+            if(!isFilled(dialogBinding)){
+                Toast.makeText(this, "모든 정보를 입력해 주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            var submitResutMsg = mainViewModel.onClickSubmitBtn(newStudyData)
+            if (submitResutMsg.equals("success")){
+                Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
+            }else{
+                // Error
+                Toast.makeText(this, submitResutMsg, Toast.LENGTH_SHORT).show()
+            }
+
             addStudyDialog.dismiss()
         }
         addStudyDialog.setContentView(dialogBinding.root)
@@ -161,14 +180,14 @@ class MainActivity : AppCompatActivity(){
     }
 
     lateinit var editStudyDialog  : Dialog
-    private fun showEditStudyDialog(studyDto : StudyDTO) {
+    private fun showEditStudyDialog(studyDto: MyStudyDTO) {
         editStudyDialog = Dialog(this)
         editStudyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)// 타이틀 제거
         val dialogBinding = DialogAddStudyBinding.inflate(layoutInflater)
         //입력난에 수정 전 내용 입력
         dialogBinding.etTitle.setText(studyDto.title)
         dialogBinding.etAddress.setText(studyDto.address)
-        dialogBinding.etPhoneNumber.setText(studyDto.contact)
+        dialogBinding.etContact.setText(studyDto.contact)
         dialogBinding.etDescription.setText(studyDto.description)
         dialogBinding.btn.text="수정"
         dialogBinding.btn.setOnClickListener {
@@ -178,6 +197,11 @@ class MainActivity : AppCompatActivity(){
         }
         editStudyDialog.setContentView(dialogBinding.root)
         editStudyDialog.show()
+    }
+
+    fun isFilled(dialogBinding: DialogAddStudyBinding) :Boolean {
+        //todo    //필수 입력 정보 모두 작성 했는지 체크
+        return true
     }
 
 }

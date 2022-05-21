@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pyrion.studymoa.databinding.ItemStudyBinding
+import com.pyrion.studymoa.utils.StudyDTO
 
 
 class BottomSheetRecyclerViewAdapter(
