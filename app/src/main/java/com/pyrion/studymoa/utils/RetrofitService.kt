@@ -18,6 +18,7 @@ interface RetrofitService {
     @POST("/")
     fun addNewStudy(@Body() places: StudyDTO): Call<ResponseAddStudyDTO>
 
+
 //    @GET("posts/1")
 //    fun getStudent(@Query("school_id") schoolId: Int,
 //                   @Query("grade") grade: Int,
